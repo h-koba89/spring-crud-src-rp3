@@ -26,7 +26,7 @@ public class IndexController {
 	/**
 	 * ログイン画面の表示
 	 * 
-	 * @param loginFormあいうえお
+	 * @param loginForm
 	 * @return 遷移先ビュー
 	 */
 	@RequestMapping(path = "/", method = RequestMethod.GET)
