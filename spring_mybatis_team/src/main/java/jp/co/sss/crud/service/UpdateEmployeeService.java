@@ -24,4 +24,8 @@ public class UpdateEmployeeService {
 		return mapper.update(employee);
 	}
 
+	public Employee findById(Integer empId) {
+		return mapper.findById(empId);
+	}
+
 }
