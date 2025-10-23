@@ -3,6 +3,7 @@ package jp.co.sss.crud.controller;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.form.EmployeeForm;
 import jp.co.sss.crud.service.SearchForDepartmentByDeptIdService;
 import jp.co.sss.crud.service.SearchForEmployeesByEmpIdService;
@@ -53,8 +55,11 @@ public class UpdateController {
 	public String inputUpdate(Integer empId, @ModelAttribute EmployeeForm employeeForm) {
 
 		//TODO 社員IDに紐づく社員情報を検索し、Employee型の変数に代入する
+		//Service 処理を行う　引数をもらって結果（戻り値）を返す
+		Employee employee = updateEmployeeService.findById(empId);
 
 		//TODO 検索した社員情報をformに積め直す(BeanCopyクラスを用いてもよい)	
+		BeanUtils.copyProperties(employee, employeeForm);
 
 		// 更新確認画面のビュー名を返す
 		return "update/update_input";
