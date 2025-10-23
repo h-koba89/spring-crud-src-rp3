@@ -21,7 +21,7 @@
 		WHERE emp_id = #{empId}
 	</select>
 
-	<!-- TODO 社員名検索 -->
+	<!-- TODO 社員名検索  -->
 	<select id="findByEmpNameContainingOrderByEmpId"
 		resultType="jp.co.sss.crud.entity.Employee">
 		SELECT *
