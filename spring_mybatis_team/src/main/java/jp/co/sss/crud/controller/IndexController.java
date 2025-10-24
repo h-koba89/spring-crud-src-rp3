@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.form.LoginForm;
 import jp.co.sss.crud.service.LoginResult;
 import jp.co.sss.crud.service.LoginService;
