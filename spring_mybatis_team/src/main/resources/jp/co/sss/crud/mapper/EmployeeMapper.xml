@@ -44,7 +44,6 @@
 		resultType="jp.co.sss.crud.entity.Employee">
 	</select>
 
-
 	<!-- 単一登録。社員IDは自動採番 -->
 	<insert id="insert"
 		parameterType="jp.co.sss.crud.entity.Employee" useGeneratedKeys="true"
@@ -60,13 +59,22 @@
 
 	<!-- TODO IDによる単一変更 -->
 	<update id="update"	parameterType="jp.co.sss.crud.entity.Employee">
-
+		UPDATE employee
+		SET
+			emp_pass = #{empPass},
+		 	emp_name = #{empName},
+		 	gender = #{gender},
+		 	address = #{address},
+		 	birthday = #{birthday},
+		 	authority = #{authority},
+		 	dept_id = #{deptId}
+		WHERE emp_id = #{empId}
 	</update>
 
 	<!-- TODO IDによる単一削除 -->
 	<delete id="delete" parameterType="int">
-
+		DELETE FROM employee
+		WHERE emp_id = #{empId}
 	</delete>
-
 
 </mapper>

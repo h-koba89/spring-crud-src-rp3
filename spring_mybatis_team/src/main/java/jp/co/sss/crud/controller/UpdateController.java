@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.crud.entity.Department;
 import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.form.EmployeeForm;
 import jp.co.sss.crud.service.SearchForDepartmentByDeptIdService;
@@ -52,7 +53,7 @@ public class UpdateController {
 	 * @return 遷移先のビュー
 	 */
 	@RequestMapping(path = "/update/input", method = RequestMethod.GET)
-	public String inputUpdate(Integer empId, @ModelAttribute EmployeeForm employeeForm) {
+	public String inputUpdate(Integer empId, @ModelAttribute EmployeeForm employeeForm, HttpSession session) {
 
 		//TODO 社員IDに紐づく社員情報を検索し、Employee型の変数に代入する
 		//Service 処理を行う　引数をもらって結果（戻り値）を返す
@@ -60,6 +61,11 @@ public class UpdateController {
 
 		//TODO 検索した社員情報をformに積め直す(BeanCopyクラスを用いてもよい)	
 		BeanUtils.copyProperties(employee, employeeForm);
+
+		Employee sessionUserEmployee = (Employee) session.getAttribute("user");
+		if (sessionUserEmployee != null && sessionUserEmployee.getEmpId().equals(empId)) {
+			session.setAttribute("user", employee); //DBから取得した最新情報で更新
+		}
 
 		// 更新確認画面のビュー名を返す
 		return "update/update_input";
@@ -77,13 +83,16 @@ public class UpdateController {
 	@RequestMapping(path = "/update/check", method = RequestMethod.POST)
 	public String checkUpdate(@Valid @ModelAttribute EmployeeForm employeeForm, BindingResult result, Model model) {
 		// TODO 入力チェックでエラーが発生した場合
-		if (false) {
+		if (result.hasErrors()) {
+			//if (false) {
 			// エラーがある場合は入力画面に戻る
 			return "update/update_input";
 		} else {
 			// TODO 部署IDから部署情報を検索する
+			Department department = searchForDepartmentByDeptIdService.findByDeptId(employeeForm.getDeptId());
 
 			// TODO 部署名をモデルに追加する
+			model.addAttribute("deptName", department.getDeptName());
 
 			// 更新確認画面のビュー名を返す
 			return "update/update_check";
@@ -113,22 +122,29 @@ public class UpdateController {
 	public String completeUpdate(EmployeeForm employeeForm, HttpSession session) {
 
 		// TODO フォームの内容をEmployeeエンティティにコピー
+		Employee employee = new Employee();
+		BeanUtils.copyProperties(employeeForm, employee);
 
-		// TODO 権限がnullの場合、デフォルトの権限を設定
-		if (false) {
+		// TODO 権限がnullの場合、デフォルトの権限を設定        
+		if (employee.getAuthority() == null) {
+			employee.setAuthority(1);
 		}
-
 		// TODO 社員情報を更新する
-
+		updateEmployeeService.update(employee);
 		// TODO セッションからユーザー情報を取得
-
+		Employee sessionUser = (Employee) session.getAttribute("user");
 		// TODO ログイン中のユーザーが自分の情報を更新した場合、セッション情報も更新
-		if (false) {
+		if (sessionUser == null) {
+			sessionUser = new Employee();
+			sessionUser.setAuthority(1);
+
 			// TODO セッションに保存されているユーザーの社員名を更新
-
 		}
-
-		// 更新完了画面へリダイレクト
+		if (sessionUser.getEmpId() != null && sessionUser.getEmpId().equals(employee.getEmpId())) {
+			sessionUser.setEmpName(employee.getEmpName());
+			sessionUser.setAuthority(employee.getAuthority());
+		}
+		session.setAttribute("user", sessionUser);
 		return "redirect:/update/complete";
 	}
 

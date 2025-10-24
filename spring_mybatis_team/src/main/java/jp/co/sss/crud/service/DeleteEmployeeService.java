@@ -3,6 +3,7 @@ package jp.co.sss.crud.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.mapper.EmployeeMapper;
 
 /**
@@ -20,6 +21,15 @@ public class DeleteEmployeeService {
 	 */
 	public Boolean execute(Integer deptId) {
 		return mapper.delete(deptId);
+	}
+
+	public Employee findById(Integer empId) {
+		return mapper.findByEmpId(empId);
+	}
+
+	public void deleteById(Integer empId) {
+		mapper.delete(empId);
+
 	}
 
 }
