@@ -81,4 +81,6 @@ public interface EmployeeMapper {
 	 */
 	Boolean delete(@Param(value = "empId") Integer employeeId);
 
+	Employee findById(Integer empId);
+
 }
