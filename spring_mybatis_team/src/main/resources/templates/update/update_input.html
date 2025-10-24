@@ -49,7 +49,7 @@
         </div>
 
 		<!-- 管理者権限のみ表示 -->
-        <th:block th:if="${session.user.authority==2}">
+        <th:block th:if="${session.user?.authority==2}">
         <div class="form">
           <div class="label">権限：</div>
           <div class="input">

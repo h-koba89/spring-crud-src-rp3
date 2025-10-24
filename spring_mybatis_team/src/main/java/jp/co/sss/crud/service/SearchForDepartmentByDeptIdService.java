@@ -16,4 +16,8 @@ public class SearchForDepartmentByDeptIdService {
 		return mapper.findByDeptId(deptId);
 	}
 
+	public Department findByDeptId(Integer deptId) {
+		return mapper.findByDeptId(deptId);
+	}
+
 }

@@ -25,7 +25,12 @@ public class UpdateEmployeeService {
 	}
 
 	public Employee findById(Integer empId) {
-		return mapper.findById(empId);
+		return mapper.findByEmpId(empId);
+	}
+
+	public void update(Employee employee) {
+		mapper.update(employee);
+
 	}
 
 }
