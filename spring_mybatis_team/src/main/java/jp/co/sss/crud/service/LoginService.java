@@ -27,11 +27,11 @@ public class LoginService {
 	 * @return LoginResult ログイン失敗時はLoginResult.failLogin,ログイン成功時はLoginResult.succeedLoginを呼び出す。
 	 */
 	public LoginResult execute(LoginForm loginForm) {
-		Employee loginuser = mapper.findByEmpIdAndEmpPass(loginForm.getEmpId(), loginForm.getEmpPass());
-		if (loginuser == null) {
+		Employee loginUser = mapper.findByEmpIdAndEmpPass(loginForm.getEmpId(), loginForm.getEmpPass());
+		if (loginUser == null) {
 			return LoginResult.failLogin(Constant.LOGIN_ERR_MSG, LoginErrorType.USER_NOT_FOUND);
 		} else {
-			return LoginResult.succeedLogin(loginuser);
+			return LoginResult.succeedLogin(loginUser);
 		}
 
 	}
