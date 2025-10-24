@@ -42,6 +42,10 @@
 	<!-- TODO ログイン用のIDとパスワード検索 -->
 	<select id="findByEmpIdAndEmpPass"
 		resultType="jp.co.sss.crud.entity.Employee">
+		SELECT *
+		FROM Employee
+		WHERE emp_id = #{empId}
+		AND emp_pass = #{empPass}
 	</select>
 
 
