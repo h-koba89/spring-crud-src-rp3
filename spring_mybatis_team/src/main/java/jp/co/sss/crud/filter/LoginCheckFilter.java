@@ -19,7 +19,6 @@ public class LoginCheckFilter extends HttpFilter {
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-
 		//TODO セッションからユーザー情報を取得
 		HttpSession session = request.getSession();
 		Object employee = session.getAttribute("user");
