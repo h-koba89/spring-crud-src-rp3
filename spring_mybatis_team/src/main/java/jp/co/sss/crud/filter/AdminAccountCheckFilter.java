@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import jp.co.sss.crud.entity.Employee;
 
 /**
@@ -53,7 +52,7 @@ public class AdminAccountCheckFilter extends HttpFilter {
 			try {
 				targetEmpId = Integer.parseInt(employeeIdParam);
 			} catch (NumberFormatException e) {
-				response.sendRedirect("/index");
+				response.sendRedirect("/spring_crud/");
 			}
 		}
 		//フィルター通過のフラグを初期化 true:フィルター通過 false:ログイン画面へ戻す
@@ -72,13 +71,12 @@ public class AdminAccountCheckFilter extends HttpFilter {
 			//TODO  レスポンス情報を取得
 			HttpServletResponse responsed = response;
 			//TODO  ログイン画面へリダイレクト
-			responsed.sendRedirect("/index");
+			responsed.sendRedirect("/spring_crud/");
 			//処理を終了
 			return;
 		}
 
 		chain.doFilter(request, response);
-		return;
 
 	}
 
